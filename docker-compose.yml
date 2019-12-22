@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  mysql:
+    container_name: mysql
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    hostname: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: password
+      TZ: Asia/Tokyo
+    volumes:
+      - "mysql-data:/var/lib/mysql"
+      - "./docker/mysql/multibyte.cnf:/etc/mysql/conf.d/multibyte.cnf"
+
+  golang:
+    container_name: golang
+    build:
+      context: .
+      dockerfile: ./docker/golang/Dockerfile
+    links:
+      - mysql
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/go/src/trading_bitcoin_api
+    command: go run main.go
+
+volumes:
+  mysql-data:
