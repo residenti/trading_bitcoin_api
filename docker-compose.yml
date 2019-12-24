@@ -24,13 +24,14 @@ services:
     build:
       context: .
       dockerfile: ./docker/golang/Dockerfile
+    tty: true
     links:
       - mysql
     ports:
       - "8080:8080"
     volumes:
       - .:/go/src/trading_bitcoin_api
-    command: go run main.go
+    # command: go run main.go
 
 volumes:
   mysql-data:
