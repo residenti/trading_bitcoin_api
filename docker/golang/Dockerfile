@@ -1,5 +1,7 @@
 FROM golang:1.8
 
+ENV TZ="Asia/Tokyo"
+
 RUN apt-get update && \
     apt-get install -y mysql-client vim
 
