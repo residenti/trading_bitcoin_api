@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"rsc.io/quote"
 )
 
 func main() {
@@ -11,5 +13,5 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, from Docker container!")
+	fmt.Fprintf(w, quote.Hello())
 }
