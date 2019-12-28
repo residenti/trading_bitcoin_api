@@ -1,0 +1,28 @@
+settings:
+  legacy:
+    force: false
+    interval: 0s
+server:
+  status: false               // server status
+  open: false                 // open browser at start
+  host: localhost             // server host
+  port: 5001                  // server port
+schema:
+- name: trading_bitcoin_api
+  path: .
+  commands:
+    run:
+      status: true
+  watcher:
+    extensions:
+    - go
+    paths:
+    - /
+    ignore:
+      paths:
+      - .git
+      - .realize
+      - docker
+      - go.mod
+      - go.sum
+      - README.md
