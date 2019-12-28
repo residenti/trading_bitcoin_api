@@ -1,15 +1,17 @@
 FROM golang:1.13.3
 
-ENV TZ="Asia/Tokyo"
-ENV GO111MODULE=on
+ENV TZ="Asia/Tokyo" \
+    GO111MODULE=on \
+    GOBIN="${PWD}/bin" \
+    PATH="{$GOBIN}:$PATH"
 
-RUN apt-get update && \
+# set -x: docker build時にコマンドが出力
+RUN set -x && \
+    apt-get update && \
     apt-get install -y default-mysql-client vim && \
-    export GOBIN=$PWD/bin $$ \ # ここ書き方が違うかも
-    export PATH=$GOBIN:$PATH   # ここ書き方が違うかも
 
 WORKDIR /go/src/trading_bitcoin_api
 
-ADD . .
+COPY . .
 
 RUN go build
