@@ -8,7 +8,7 @@ ENV TZ="Asia/Tokyo" \
 # set -x: docker build時にコマンドが出力
 RUN set -x && \
     apt-get update && \
-    apt-get install -y default-mysql-client vim && \
+    apt-get install -y default-mysql-client vim
 
 WORKDIR /go/src/trading_bitcoin_api
 
