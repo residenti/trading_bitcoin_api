@@ -8,7 +8,7 @@ import (
 )
 
 type ConfigList struct {
-	Item string
+	Logfile string
 }
 
 var List ConfigList
@@ -21,6 +21,6 @@ func init() {
 	}
 
 	List = ConfigList{
-		Item: cfg.Section("config").Key("item").String(),
+		Logfile: cfg.Section("trading_bitcoin_api").Key("log_file").String(),
 	}
 }
