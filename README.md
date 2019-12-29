@@ -20,8 +20,12 @@
 
 `go build` を実行すると `go.sum`, `go.mod` に記録されているパッケージが自動でインストールされます。
 
-## About package management
-Go Moudules の module-aware mode でパッケージを管理しています。
+## Package management
+Go Moudules の module-aware mode でパッケージを管理しています。  
+module-aware mode を有効にするために `GO111MODULE=on` としています。  
+(プロジェクト配下に `go.sum`, `go.mod` が配置されているため `GO111MODULE=auto` にしても module-aware mode となるが分かりやすいので明示的に `on` を指定している)
 
 注意点として、ツール系のパッケージは `tools/tool.go` にて blank import してください。  
+
+実行ファイルは `GOBIN="/go/src/trading_bitcoin_api/bin"` に配置されます。  
 詳細は[こちら](https://marcofranssen.nl/manage-go-tools-via-go-modules/)を参考にしてください。
