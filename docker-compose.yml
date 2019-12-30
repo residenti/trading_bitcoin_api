@@ -25,7 +25,7 @@ services:
       context: .
       dockerfile: ./docker/golang/Dockerfile
     tty: true
-    links:
+    depends_on:
       - mysql
     ports:
       - "8080:8080"
