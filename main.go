@@ -5,10 +5,9 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/residenti/trading_bitcoin_api/bitflyer"
 	"github.com/residenti/trading_bitcoin_api/config"
 	"github.com/residenti/trading_bitcoin_api/utils"
-
-	"rsc.io/quote"
 )
 
 func init() {
@@ -21,6 +20,11 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	log.Println("called!")
-	fmt.Fprintf(w, quote.Hello())
+	apiClinet := bitflyer.New()
+	ticker, err := apiClinet.GetTicker("BTC_JPY")
+	if err != nil {
+		log.Printf("handler err=%s", err.Error())
+	}
+
+	fmt.Fprint(w, *ticker)
 }
