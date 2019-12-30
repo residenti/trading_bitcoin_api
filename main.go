@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/residenti/trading_bitcoin_api/bitflyer"
@@ -15,16 +14,19 @@ func init() {
 }
 
 func main() {
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	// http.HandleFunc("/", handler)
+	// http.ListenAndServe(":8080", nil)
+
+	apiClinet := bitflyer.New()
+	tickerChannel := make(chan bitflyer.Ticker)
+
+	go apiClinet.SubscribeTicker("BTC_JPY", tickerChannel)
+
+	for ticker := range tickerChannel {
+		fmt.Println(ticker)
+	}
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	apiClinet := bitflyer.New()
-	ticker, err := apiClinet.GetTicker("BTC_JPY")
-	if err != nil {
-		log.Printf("handler err=%s", err.Error())
-	}
-
-	fmt.Fprint(w, *ticker)
+	fmt.Fprint(w, "hello")
 }
