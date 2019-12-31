@@ -20,7 +20,7 @@ func main() {
 	apiClinet := bitflyer.New()
 	tickerChannel := make(chan bitflyer.Ticker)
 
-	go apiClinet.SubscribeTicker("BTC_JPY", tickerChannel)
+	go apiClinet.SubscribeTicker(config.List.ProductCode, tickerChannel)
 
 	for ticker := range tickerChannel {
 		fmt.Println(ticker)

@@ -9,6 +9,7 @@ import (
 
 type ConfigList struct {
 	Logfile     string
+	ProductCode string
 	HttpBaseUrl string
 }
 
@@ -23,6 +24,7 @@ func init() {
 
 	List = ConfigList{
 		Logfile:     cfg.Section("trading_bitcoin_api").Key("log_file").String(),
+		ProductCode: cfg.Section("trading_bitcoin_api").Key("product_code").String(),
 		HttpBaseUrl: cfg.Section("bitflyer").Key("http_base_url").String(),
 	}
 }
