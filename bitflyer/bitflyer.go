@@ -101,7 +101,7 @@ type SubscribeParams struct {
 	Channel string `json:"channel"`
 }
 
-func (api *APIClient) SubscribeTicker(symbol string, ch chan<- Ticker) {
+func (api *APIClient) SubscribeTicker(productCode string, ch chan<- Ticker) {
 	u := url.URL{Scheme: "wss", Host: "ws.lightstream.bitflyer.com", Path: "/json-rpc"}
 
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
@@ -110,7 +110,7 @@ func (api *APIClient) SubscribeTicker(symbol string, ch chan<- Ticker) {
 	}
 	defer c.Close()
 
-	channel := fmt.Sprintf("lightning_ticker_%s", symbol)
+	channel := fmt.Sprintf("lightning_ticker_%s", productCode)
 	if err := c.WriteJSON(&JsonRPC2{Version: "2.0", Method: "subscribe", Params: &SubscribeParams{channel}}); err != nil {
 		log.Fatal("subscribe:", err)
 		return
