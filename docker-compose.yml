@@ -3,18 +3,17 @@ version: '3'
 services:
 
   mysql:
+    image: mysql:8.0
     container_name: mysql
-    build:
-      context: .
-      dockerfile: ./docker/mysql/Dockerfile
     hostname: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: trading_bitcoin
+      MYSQL_USER: trading_bitcoin
+      MYSQL_PASSWORD: trading_bitcoin
+      TZ: Asia/Tokyo
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: password
-      TZ: Asia/Tokyo
     volumes:
       - "mysql-data:/var/lib/mysql"
       - "./docker/mysql/multibyte.cnf:/etc/mysql/conf.d/multibyte.cnf"
