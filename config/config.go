@@ -11,6 +11,7 @@ import (
 type ConfigList struct {
 	Logfile       string
 	ProductCode   string
+	Port          int
 	HttpBaseUrl   string
 	Durations     map[string]time.Duration
 	TradeDuration time.Duration
@@ -36,6 +37,7 @@ func init() {
 	List = ConfigList{
 		Logfile:       cfg.Section("trading_bitcoin_api").Key("log_file").String(),
 		ProductCode:   cfg.Section("trading_bitcoin_api").Key("product_code").String(),
+		Port:          cfg.Section("trading_bitcoin_api").Key("port").MustInt(),
 		HttpBaseUrl:   cfg.Section("bitflyer").Key("http_base_url").String(),
 		Durations:     durations,
 		TradeDuration: durations[cfg.Section("trading_bitcoin_api").Key("trade_duration").String()],

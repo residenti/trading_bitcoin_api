@@ -11,12 +11,14 @@ func SubscribeData() {
 	tickerChannel := make(chan bitflyer.Ticker)
 	go apiClinet.SubscribeTicker(config.List.ProductCode, tickerChannel)
 
-	for ticker := range tickerChannel {
-		for _, duration := range config.List.Durations {
-			isCreated := models.CreateCandleWithDuration(ticker, ticker.ProductCode, duration)
-			if isCreated == true && duration == config.List.TradeDuration {
-				// TODO
+	go func() {
+		for ticker := range tickerChannel {
+			for _, duration := range config.List.Durations {
+				isCreated := models.CreateCandleWithDuration(ticker, ticker.ProductCode, duration)
+				if isCreated == true && duration == config.List.TradeDuration {
+					// TODO
+				}
 			}
 		}
-	}
+	}()
 }

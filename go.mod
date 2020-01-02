@@ -22,5 +22,6 @@ require (
 	gopkg.in/ini.v1 v1.51.1
 	gopkg.in/urfave/cli.v2 v2.0.0-20190806201727-b62605953717 // indirect
 	gopkg.in/yaml.v2 v2.2.7 // indirect
+	honnef.co/go/tools v0.0.1-2019.2.3
 	rsc.io/quote v1.5.2
 )
