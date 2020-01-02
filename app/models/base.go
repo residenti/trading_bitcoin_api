@@ -11,12 +11,17 @@ import (
 	"github.com/residenti/trading_bitcoin_api/config"
 )
 
+var DbConnection *sql.DB
+
 func init() {
-	dbConnection, err := sql.Open(config.List.Driver, config.List.DataSource)
+	var err error
+	DbConnection, err = sql.Open(config.List.Driver, config.List.DataSource)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	defer dbConnection.Close() // 正直Closeすべきか曖昧.
+
+	// Don't do that if you don't want your db closed when NewDatabase returns. You don't need to close the db if you plan on reusing it. However you need to close rows whenever you call Query, otherwise your app will hit the connection limit and crash.
+	// defer DbConnection.Close() // 正直Closeすべきか曖昧.
 
 	for _, duration := range config.List.Durations {
 		tableName := GetCandleTableName(config.List.ProductCode, duration)
@@ -28,7 +33,7 @@ func init() {
 				high FLOAT,
 				low FLOAT,
 				volume FLOAT)`, tableName)
-		_, err := dbConnection.Exec(ddl)
+		_, err := DbConnection.Exec(ddl)
 		if err != nil {
 			log.Fatalln(err)
 		}
