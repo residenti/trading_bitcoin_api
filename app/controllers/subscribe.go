@@ -15,7 +15,7 @@ func SubscribeData() {
 		for ticker := range tickerChannel {
 			for _, duration := range config.List.Durations {
 				isCreated := models.CreateCandleWithDuration(ticker, ticker.ProductCode, duration)
-				if isCreated == true && duration == config.List.TradeDuration {
+				if isCreated && duration == config.List.TradeDuration {
 					// TODO
 				}
 			}
