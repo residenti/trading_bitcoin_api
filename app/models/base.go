@@ -20,7 +20,7 @@ func init() {
 		log.Fatalln(err)
 	}
 
-	// Don't do that if you don't want your db closed when NewDatabase returns. You don't need to close the db if you plan on reusing it. However you need to close rows whenever you call Query, otherwise your app will hit the connection limit and crash.
+	// NOTE Don't do that if you don't want your db closed when NewDatabase returns. You don't need to close the db if you plan on reusing it. However you need to close rows whenever you call Query, otherwise your app will hit the connection limit and crash.
 	// defer DbConnection.Close() // 正直Closeすべきか曖昧.
 
 	for _, duration := range config.List.Durations {
