@@ -45,6 +45,7 @@ func apiMakeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFun
 	}
 }
 
+// TODO クエリパラメーターのバリデーションが緩い気がする.
 func apiCandleHandler(w http.ResponseWriter, r *http.Request) {
 	productCode := r.URL.Query().Get("product_code")
 	if productCode == "" {
